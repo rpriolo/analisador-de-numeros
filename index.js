@@ -7,12 +7,48 @@ botaoLimpar.addEventListener('click', limparDados)
 
 let listaNumeros = [];
 
+function procuraNumero(n, arrayName) {
+    for (let i = 0; i < arrayName.length; i++) {
+        if (n == arrayName[i]) {
+            return true;
+        }
+    }
+}
+
+function ordenarArray(arrayName) {
+    // ORDENAÇÃO DO MENOR PARA O MAIOR
+    for (let vezes = 1; vezes < (arrayName.length); vezes++) {
+        for (let i = 0; i < (arrayName.length-1); i++) {
+            if (arrayName[i] > arrayName[i+1]) {
+                let temp = arrayName[i];
+                arrayName[i] = arrayName[i+1];
+                arrayName[i+1] = temp;
+            }
+        }
+    }
+}
+
+function somarArray(arrayName) {
+    let soma = 0;
+    for (let i = 0; i < arrayName.length; i++) {
+        soma += arrayName[i];
+    }
+    return soma;
+}
+
+function mediaArray(arrayName) {
+    let media = somarArray(arrayName) / arrayName.length;
+    return media;
+}
+
 function adicionarNumero() {
     let inputNumero = document.querySelector('input#numero');
     let numero = Number(inputNumero.value);
 
     if (numero <= 0 || numero > 100) {
         alert('Você precisa inserir um número entre 1 e 100 para continuar.')
+    } else if (procuraNumero(numero, listaNumeros)) {
+        alert('Esse número já está na lista.');
     } else {
         listaNumeros.push(numero);
         let select = document.querySelector('select#lista');
@@ -26,53 +62,6 @@ function adicionarNumero() {
 }
 
 function finalizarAnalise() {
-
-    function ordenarArray(arrayName) {
-        // ORDENAÇÃO DO MENOR PARA O MAIOR
-        for (let vezes = 1; vezes < (arrayName.length); vezes++) {
-            for (let i = 0; i < (arrayName.length-1); i++) {
-                if (arrayName[i] > arrayName[i+1]) {
-                    let temp = arrayName[i];
-                    arrayName[i] = arrayName[i+1];
-                    arrayName[i+1] = temp;
-                }
-            }
-        }
-    }
-    function somarArray(arrayName) {
-        let soma = 0;
-        for (let i = 0; i < arrayName.length; i++) {
-            soma += arrayName[i];
-        }
-        return soma;
-    }
-    function mediaArray(arrayName) {
-        let media = somarArray(arrayName) / arrayName.length;
-        return media;
-    }
-
-    /* ORDENAÇÃO, SOMA E MÉDIA FORA DAS FUNÇÕES
-    // ORDENAÇÃO DO MENOR PARA O MAIOR
-    for (let vezes = 1; vezes < (listaNumeros.length); vezes++) {
-        for (let i = 0; i < (listaNumeros.length-1); i++) {
-            if (listaNumeros[i] > listaNumeros[i+1]) {
-                let temp = listaNumeros[i];
-                listaNumeros[i] = listaNumeros[i+1];
-                listaNumeros[i+1] = temp;
-            }
-        }
-    }
-
-    // SOMA
-    let soma = 0;
-    for (let i = 0; i < listaNumeros.length; i++) {
-        soma += listaNumeros[i];
-    }
- 
-    // MÉDIA
-    let media = soma / listaNumeros.length;
-    */
-
     if (listaNumeros.length == 0) {
         alert('Você precisa adicionar ao menos um número antes de finalizar.')
     } else {
